@@ -46,10 +46,28 @@ Wordlist are defined in many languages in the standard, you can select any one b
 ## Converting Group of Bits to Words
 We will use every group as an index to the wordlist (read in the same order) and use the replace those by the word found at that index.
 
-    color outdoor bicycle impact shadow victory topic fiction divide biology unit turtle
+    color outdoor bicycle together meadow trap topic fiction divide biology unit turtle
+
+## Converting to Binary Form
+The binary form of this will be used as seed while generating wallet address. We will select a pass phrase, which can be empty and prepend "mnemonic" to it. I will also be selecting empty pass phrase so, the prepended form will be "mnemonic". If you had selected "phrase" as pass phrase, prepended form would have been "mnemonicphrase".
+
+We will then use the UTF-8 form of the above generated group of both of these.
+
+    636f6c6f72206f7574646f6f722062696379636c6520746f676574686572206d6561646f77207472617020746f7069632066696374696f6e206469766964652062696f6c6f677920756e697420747572746c65
+
+and
+
+    6d6e656d6f6e6963
+
+and pass them through [PBKDF2](https://www.ietf.org/rfc/rfc2898.txt) using `2048` iterations and [HMAC](https://tools.ietf.org/html/rfc2104)-[SHA512](https://datatracker.ietf.org/doc/html/rfc6234) using generated words as data and pass phrase as salt. 
+
+The result is
+
+    1d877b08179ad77dbccfb630dba38e86f61f8d581d313a7ffed1f0a3a4eff4502177ee517dd9dfedd9b6bbdcc3ea411a2173d9b46b0c634f476867054cd5d8ec
+
 
 # Conclusion
-As a result we got a pass phrase which will be used to derive private and public of a bitcoin wallet.
+As a result we got a seed which will be used to derive private and public of a bitcoin wallet.
 
 # P.S.
 The above entropy and its pass-phrase is totally random.
